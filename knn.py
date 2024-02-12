@@ -54,11 +54,11 @@ class KNNClassifier:
         distances, np array (num_test_samples, num_train_samples) - array
            with distances between each test and each train sample
         """
-        
-        """
-        YOUR CODE IS HERE
-        """
-        pass
+        distances = np.zeros((X.shape[0], self.train_X.shape[0]))
+        for i in range(distances.shape[0]):
+            for j in range(distances.shape[1]):
+                distances[i, j] = np.sum(np.abs(self.train_X[j] - X[i]))
+        return distances        
 
 
     def compute_distances_one_loop(self, X):
@@ -73,11 +73,10 @@ class KNNClassifier:
         distances, np array (num_test_samples, num_train_samples) - array
            with distances between each test and each train sample
         """
-
-        """
-        YOUR CODE IS HERE
-        """
-        pass
+        distances = np.zeros((X.shape[0], self.train_X.shape[0]))
+        for i in range(distances.shape[0]):
+            distances[i] = np.sum(np.abs(self.train_X - X[i]), axis = 1)
+        return distances
 
 
     def compute_distances_no_loops(self, X):
@@ -92,11 +91,9 @@ class KNNClassifier:
         distances, np array (num_test_samples, num_train_samples) - array
            with distances between each test and each train sample
         """
-
-        """
-        YOUR CODE IS HERE
-        """
-        pass
+        
+        distances = np.abs(X[:, np.newaxis, :] - self.train_X).sum(axis=2)
+        return distances
 
 
     def predict_labels_binary(self, distances):
@@ -114,7 +111,8 @@ class KNNClassifier:
         n_train = distances.shape[1]
         n_test = distances.shape[0]
         prediction = np.zeros(n_test)
-
+        #for i in range(n_test):
+        #    neib_idx = np.argsort(distances[i])[0:self.k]
         """
         YOUR CODE IS HERE
         """
